@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart City Route Optimizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>try{if(!sessionStorage.getItem("user"))location.replace("login.html")}catch(e){location.replace("login.html")}</script>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+ <div class="brand"><span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="6" r="2.5"/><path d="M7.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7.5"/></svg></span>Smart City Route Optimizer</div>
+ <div class="user"><span class="avatar" id="av" aria-hidden="true"></span><span id="uname"></span></div>
+ <button class="ghost" id="theme" type="button" aria-label="Switch light or dark theme">Theme</button>
+ <button class="ghost" id="logout" type="button">Sign out</button>
+</div>
+
+<div class="hero">
+ <h1>Find the fastest way across the city</h1>
+ <p>Pick two locations, close a road, and watch Dijkstra’s algorithm and Bellman-Ford find the shortest route. Then test both on cities of growing size.</p>
+ <div class="chips"><span class="chip">11 locations</span><span class="chip">20 roads</span><span class="chip">2 algorithms</span><span class="chip">Runs in your browser</span></div>
+</div>
+
+<div class="grid">
+ <div class="panel">
+  <div class="controls">
+   <label>Start<select id="src"></select></label>
+   <label>Destination<select id="dst"></select></label>
+   <button class="ghost" id="reset" type="button">Reopen all roads</button>
+  </div>
+  <div class="map" id="map"></div>
+  <div class="legend">
+   <span><i class="sw"></i>Dijkstra route</span>
+   <span><i class="sw b"></i>Bellman-Ford route</span>
+   <span>Click a location to set start, then destination. Click a road to close or reopen it.</span>
+  </div>
+ </div>
+ <div class="panel teal" id="results" aria-live="polite"></div>
+</div>
+
+<section class="panel amber">
+ <h2>Benchmark on larger cities</h2>
+ <p class="mut">Builds random connected cities (about four roads per location, weights 1 to 20 km) and times both algorithms in your browser. Each time is the best of three runs.</p>
+ <button id="bench" type="button">Run benchmark</button>
+ <span class="mut" id="bstat" style="margin-left:10px"></span>
+ <div class="two" style="margin-top:14px">
+  <div id="chart"></div>
+  <div class="tw" id="table"></div>
+ </div>
+ <p class="legend"><span><i class="sw"></i>Dijkstra</span><span><i class="sw b"></i>Bellman-Ford</span><span>Horizontal: locations. Vertical: milliseconds.</span></p>
+</section>
+
+<section class="two">
+ <div class="panel teal">
+  <h2>Dijkstra’s algorithm</h2>
+  <p>Keeps a min-heap of locations ordered by distance from the start. It repeatedly takes the closest unsettled location and relaxes its roads. Runs in <code>O((V + E) log V)</code>.</p>
+  <p class="mut">Needs non-negative road weights, which suits distances and travel times.</p>
+ </div>
+ <div class="panel pink">
+  <h2>Bellman-Ford</h2>
+  <p>Relaxes every road, repeats up to V − 1 passes, and stops early when a pass changes nothing. Runs in <code>O(V · E)</code> in the worst case.</p>
+  <p class="mut">Handles negative weights and detects negative cycles, such as a toll rebate that loops back on itself.</p>
+ </div>
+</section>
+<footer>Smart City Route Optimization System · Data Structures project</footer>
+</div>
+<script src="js/auth.js"></script>
+<script src="js/data.js"></script>
+<script src="js/algorithms.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/benchmark.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

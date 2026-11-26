@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in · Smart City Route Optimizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="auth">
+ <div class="art">
+  <h1>Find the fastest way across the city</h1>
+  <p>Compare Dijkstra’s algorithm and Bellman-Ford on a live road network and on cities of growing size.</p>
+  <svg viewBox="0 0 420 220" aria-hidden="true">
+   <g stroke="rgba(255,255,255,.55)" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M40 150 L130 60 L250 110 L360 40"/><path d="M130 60 L170 180 L250 110"/><path d="M170 180 L330 170 L360 40"/>
+   </g>
+   <path d="M40 150 L130 60 L250 110 L360 40" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" fill="none"/>
+   <g fill="#fff" stroke="#312e81" stroke-width="4"><circle cx="40" cy="150" r="12"/><circle cx="130" cy="60" r="10"/><circle cx="250" cy="110" r="10"/><circle cx="170" cy="180" r="10"/><circle cx="330" cy="170" r="10"/></g>
+   <circle cx="360" cy="40" r="14" fill="#06b6d4" stroke="#fff" stroke-width="4"/>
+  </svg>
+ </div>
+ <div class="formside">
+  <form class="login" id="f" autocomplete="on">
+   <h2>Welcome back</h2>
+   <p class="mut">Sign in to open the route optimizer.</p>
+   <div class="err" id="err" role="alert" hidden></div>
+   <label class="field">Username<input name="username" autocomplete="username" required autofocus></label>
+   <label class="field">Password
+    <span class="pw"><input id="pw" name="password" type="password" autocomplete="current-password" required><button type="button" id="show" class="ghost">Show</button></span>
+   </label>
+   <button class="go" type="submit">Sign in</button>
+   <div class="hint">Demo login: <strong>admin</strong> / <strong>smartcity123</strong></div>
+  </form>
+ </div>
+</main>
+<script src="js/auth.js"></script>
+<script>
+if(getUser())location.replace("index.html");
+document.getElementById("f").addEventListener("submit",function(e){e.preventDefault();var u=this.username.value.trim(),p=this.password.value,er=document.getElementById("err");if(u===CREDENTIALS.username&&p===CREDENTIALS.password){setUser(u);location.replace("index.html")}else{er.textContent="Incorrect username or password.";er.hidden=false}});
+document.getElementById("show").addEventListener("click",function(){var i=document.getElementById("pw"),s=i.type==="password";i.type=s?"text":"password";this.textContent=s?"Hide":"Show"});
+</script>
+</body>
+</html>
